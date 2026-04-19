@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SECURE BHARAT SUMMIT | Command Center</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary": "#ff00ff","secondary": "#00f3ff","surface-dark": "#0a0a0c",
+                    "panel-bg": "#121217",
+                    "panel-border": "#1e1e26",
+                    "on-surface": "#e2e2e9",
+                    "on-surface-variant": "#9494a5"
+            },
+            "fontFamily": {
+                    "headline": ["Space Grotesk", "sans-serif"],
+                    "mono": ["JetBrains Mono", "monospace"],
+                    "body": ["Space Grotesk", "sans-serif"]
+            }
+          },
+        },
+      }
+    </script>
+<style type="text/tailwindcss">
+        @layer base {
+            body {
+                background-color: #0a0a0c;
+                color: #e2e2e9;
+                overflow-x: hidden;
+            }
+        }
+        .hex-grid {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='36' viewBox='0 0 42 36'%3E%3Cpath d='M21 0l21 12v12L21 36 0 24V12z' fill='none' stroke='%2300f3ff' stroke-opacity='0.08' stroke-width='1'/%3E%3C/svg%3E");
+        }
+        .scanlines {
+            background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, .15) 51%);
+            background-size: 100% 4px;
+        }
+        .ui-panel {
+            background-color: rgba(18, 18, 23, 0.8);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            border: 1px solid #1e1e26;
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.4);
+        }
+        .ui-panel::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            width: 1rem;
+            height: 1rem;
+            border-top: 2px solid #00f3ff;
+            border-left: 2px solid #00f3ff;
+            opacity: 0.5;
+        }
+        .ui-panel::after {
+            content: '';
+            position: absolute;
+            right: -1px;
+            bottom: -1px;
+            width: 1rem;
+            height: 1rem;
+            border-right: 2px solid #ff00ff;
+            border-bottom: 2px solid #ff00ff;
+            opacity: 0.5;
+        }
+        .dashboard-border {
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            position: relative;
+        }
+        .dashboard-border::before {
+            content: 'SECURE_NODE_04';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: #0a0a0c;
+            padding: 0 10px;
+            font-family: 'JetBrains Mono';
+            font-size: 10px;
+            color: #00f3ff;
+            letter-spacing: 2px;
+        }
+        .cyber-button-magenta {
+            position: relative;
+            overflow: hidden;
+            background-color: rgba(255, 0, 255, 0.1);
+            border: 1px solid #ff00ff;
+            color: #ff00ff;
+            padding: 0.75rem 2rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0% 30%);
+        }
+        .cyber-button-magenta:hover {
+            background-color: #ff00ff;
+            color: #ffffff;
+        }
+        .cyber-button-cyan {
+            position: relative;
+            overflow: hidden;
+            background-color: rgba(0, 243, 255, 0.1);
+            border: 1px solid #00f3ff;
+            color: #00f3ff;
+            padding: 0.75rem 2rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            clip-path: polygon(0 0, 90% 0, 100% 30%, 100% 100%, 10% 100%, 0% 70%);
+        }
+        .cyber-button-cyan:hover {
+            background-color: #00f3ff;
+            color: #000000;
+        }
+        .glitch-text {
+            text-shadow: 2px 0 #ff00ff, -2px 0 #00f3ff;
+        }
+        .data-stream {
+            mask-image: linear-gradient(to bottom, transparent, black, transparent);
+        }
+    </style>
+</head>
+<body class="font-body selection:bg-secondary selection:text-black">
+<div class="fixed inset-0 hex-grid pointer-events-none z-0"></div>
+<div class="fixed inset-0 scanlines pointer-events-none z-50 opacity-10"></div>
+<header class="fixed top-0 w-full z-[60] flex flex-col">
+<div class="bg-black/80 backdrop-blur-xl border-b border-panel-border px-8 py-3 flex justify-between items-center">
+<div class="flex items-center gap-6">
+<div class="flex flex-col">
+<span class="text-xl font-bold tracking-[0.2em] text-secondary font-headline glitch-text">SECURE BHARAT</span>
+<span class="text-[10px] font-mono text-on-surface-variant tracking-[0.4em] -mt-1 uppercase">Operational Headquarters</span>
+</div>
+<div class="hidden lg:flex gap-4 items-center pl-6 border-l border-panel-border">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-mono text-[10px] text-secondary uppercase tracking-widest">System: Optimal</span>
+</div>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="font-mono text-[11px] text-secondary hover:brightness-125 transition-all flex items-center gap-2" href="#"><span class="w-1 h-1 bg-secondary"></span> LABS_01</a>
+<a class="font-mono text-[11px] text-on-surface-variant hover:text-primary transition-all flex items-center gap-2" href="#"><span class="w-1 h-1 bg-on-surface-variant"></span> INTEL_02</a>
+<a class="font-mono text-[11px] text-on-surface-variant hover:text-primary transition-all flex items-center gap-2" href="#"><span class="w-1 h-1 bg-on-surface-variant"></span> PANEL_03</a>
+<a class="font-mono text-[11px] text-on-surface-variant hover:text-primary transition-all flex items-center gap-2" href="#"><span class="w-1 h-1 bg-on-surface-variant"></span> NEXUS_04</a>
+</nav>
+<button class="bg-primary/20 border border-primary text-primary px-5 py-1.5 font-mono text-[11px] font-bold hover:bg-primary hover:text-white transition-all uppercase tracking-tighter">
+            Initialize Access
+        </button>
+</div>
+<div class="h-1 w-full bg-gradient-to-r from-transparent via-secondary/20 to-transparent"></div>
+</header>
+<main class="relative z-20 pt-20">
+<section class="min-h-[921px] flex flex-col items-center justify-center px-4 relative">
+<div class="absolute top-1/4 left-10 hidden xl:block">
+<div class="ui-panel p-4 font-mono text-[10px] text-secondary/40 space-y-1">
+<div>[SIGNAL_STRENGTH: 99.4%]</div>
+<div>[ENCRYPTION: AES-256]</div>
+<div>[THREAT_LEVEL: LOW]</div>
+</div>
+</div>
+<div class="mb-8 flex flex-col items-center gap-2">
+<div class="flex items-center gap-3">
+<div class="h-[1px] w-16 bg-gradient-to-r from-transparent to-secondary"></div>
+<span class="text-secondary font-mono text-[10px] tracking-[0.4em] uppercase">Protocol: Bharat_Nexus_Init</span>
+<div class="h-[1px] w-16 bg-gradient-to-l from-transparent to-secondary"></div>
+</div>
+</div>
+<div class="relative mb-12">
+<h1 class="font-headline text-6xl md:text-9xl font-bold tracking-tighter text-center leading-[0.9]">
+<span class="block text-white">SECURE BHARAT</span>
+<span class="block text-transparent bg-clip-text bg-gradient-to-b from-primary via-primary to-primary/40 drop-shadow-[0_0_30px_rgba(255,0,255,0.3)]">SUMMIT 26</span>
+</h1>
+<div class="absolute -top-6 -right-12 font-mono text-secondary text-sm opacity-50 hidden md:block">VER_2.0.4a</div>
+</div>
+<div class="flex flex-wrap justify-center gap-4 mb-12 max-w-4xl">
+<div class="dashboard-border p-4 bg-black/40 flex items-center gap-4 min-w-[280px]">
+<span class="material-symbols-outlined text-secondary">terminal</span>
+<div class="flex flex-col">
+<span class="font-mono text-[9px] text-on-surface-variant uppercase tracking-widest">Temporal Coordinate</span>
+<span class="font-headline font-bold text-lg text-white">02_MAY_2026</span>
+</div>
+</div>
+<div class="dashboard-border p-4 bg-black/40 flex items-center gap-4 min-w-[280px]">
+<span class="material-symbols-outlined text-primary">hub</span>
+<div class="flex flex-col">
+<span class="font-mono text-[9px] text-on-surface-variant uppercase tracking-widest">Deployment Zone</span>
+<span class="font-headline font-bold text-lg text-white">GGSIPU EDC AUDITORIUM</span>
+</div>
+</div>
+</div>
+<p class="max-w-2xl text-center text-on-surface-variant font-mono text-sm leading-relaxed mb-12 opacity-80 border-l border-primary/30 pl-6">
+            Establishing the defensive perimeter for the nation's digital sovereignty. Protocol execution involves high-level architectural forensics and active counter-intrusion simulations.
+        </p>
+<div class="flex flex-col md:flex-row gap-8">
+<button class="cyber-button-magenta">Execute Encryption</button>
+<button class="cyber-button-cyan">Fetch Mission Intel</button>
+</div>
+</section>
+<section class="max-w-7xl mx-auto px-8 py-24">
+<div class="flex items-end justify-between mb-16 border-b border-panel-border pb-8">
+<div class="flex flex-col">
+<span class="text-secondary font-mono text-[10px] tracking-[0.5em] uppercase mb-2">Protocol // Module Selection</span>
+<h2 class="text-5xl font-headline font-bold text-white tracking-tight">OPERATIONAL TRACKS</h2>
+</div>
+<div class="hidden lg:flex flex-col text-right font-mono text-[10px] text-on-surface-variant">
+<span>ACTIVE_SUBROUTINES: 04</span>
+<span>STATUS: READY_FOR_DEPLOYMENT</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-panel-border border border-panel-border overflow-hidden">
+<div class="bg-surface-dark p-8 group transition-all hover:bg-panel-bg flex flex-col h-[480px]">
+<div class="flex justify-between items-start mb-8">
+<span class="font-mono text-[10px] text-secondary">M_01 / LABS</span>
+<span class="material-symbols-outlined text-secondary opacity-30 group-hover:opacity-100 transition-opacity">terminal</span>
+</div>
+<div class="flex-grow flex items-center justify-center relative overflow-hidden mb-8">
+<img alt="Hardware" class="w-full h-full object-cover opacity-20 grayscale group-hover:grayscale-0 group-hover:opacity-40 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkHsjCWMI_p3e9Oqbe5yjr23jLSyqox7XG618xC7K-iQNC73-OPK3x6oljzJ_T-HcTx_teSSVkMiOILq2JRoJnvMcraEzVwSy0l_9K-8WjCCKVngdCQ7T2ulimk1KxpVnoRyrzG0Whkc-rwMbn007XQb3ryLbL3Z7t-ADqu3YvbCKLI5FOaWY47W2gOnAlhNA-vMD8f4hYIsFZ5y0J1MkjU8rFGJtRyXiSQ1oDC08pUc_C0god21e21srvmJEoX89pfsKQqMLKWhY"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dark via-transparent to-transparent"></div>
+</div>
+<div>
+<h3 class="text-2xl font-headline font-bold text-white mb-3">Tech Workshop</h3>
+<p class="font-mono text-xs text-on-surface-variant leading-relaxed">
+                        Mission Objective: Hands-on binary exploitation and kernel-level defense. Protocol execution includes real-time perimeter hardening.
+                    </p>
+</div>
+</div>
+<div class="bg-surface-dark p-8 group transition-all hover:bg-panel-bg flex flex-col h-[480px]">
+<div class="flex justify-between items-start mb-8">
+<span class="font-mono text-[10px] text-primary">M_02 / INTEL</span>
+<span class="material-symbols-outlined text-primary opacity-30 group-hover:opacity-100 transition-opacity">security</span>
+</div>
+<div class="flex-grow flex items-center justify-center relative overflow-hidden mb-8">
+<img alt="Servers" class="w-full h-full object-cover opacity-20 grayscale group-hover:grayscale-0 group-hover:opacity-40 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRUDt6cSEGwKo4SuH5FNFLeUhu6-uE8sPw5coMmzceUR32sPaqF-bW_6qx5h_mcnwuj85oy3RGSfPSrj8YU5VctUe3Q5NxOHlQCKnPoVvujhjnLIYRPOXozGqPgvwupzfX5yut_4WLYp4R9jE_q3Umay-R-PMrTv2gda2U94cGKG7gkJQX_TUIxDGSY92G9AuvEkneQZD9TUIrbPnWPc7xvvvVG_lArCTGQjw7Rc4pW2eNRUKuV4KVd6RY7j0dxUnu5a13K5YXAI8"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dark via-transparent to-transparent"></div>
+</div>
+<div>
+<h3 class="text-2xl font-headline font-bold text-white mb-3">Expert Sessions</h3>
+<p class="font-mono text-xs text-on-surface-variant leading-relaxed">
+                        Mission Objective: Strategy dissemination for zero-trust architectures. Critical readout of emerging threat vectors and counter-AI tactics.
+                    </p>
+</div>
+</div>
+<div class="bg-surface-dark p-8 group transition-all hover:bg-panel-bg flex flex-col h-[480px]">
+<div class="flex justify-between items-start mb-8">
+<span class="font-mono text-[10px] text-secondary">M_03 / STRAT</span>
+<span class="material-symbols-outlined text-secondary opacity-30 group-hover:opacity-100 transition-opacity">groups</span>
+</div>
+<div class="flex-grow flex items-center justify-center relative overflow-hidden mb-8">
+<img alt="Network" class="w-full h-full object-cover opacity-20 grayscale group-hover:grayscale-0 group-hover:opacity-40 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvpmlUfb8r6UQVI9MX1pnW1mokc7gjuIybjoRXoI5KiHjcRovYlFLx4lE2HnSX_qb3ujQwAWqTgMxlo0CIhDDjep5PhtE7oD4lLYBbmJ5gojdtHKlUlY9ol8Je832xNG4zU1rhHhWTLY_4V_k-qvmDiF0aDzwZf9_edak3RDSqRIBHJKnqY56CVNS60sV4qyTTWMgXqsHMYGO81R_mf0COEmwI2A_pAEDDckpLWvyngpWFy1DduHBRv3DiLt2-YaOuq-rRFM1rh4A"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dark via-transparent to-transparent"></div>
+</div>
+<div>
+<h3 class="text-2xl font-headline font-bold text-white mb-3">Panel Discussion</h3>
+<p class="font-mono text-xs text-on-surface-variant leading-relaxed">
+                        Mission Objective: High-level command synthesis on national cyber policy. Protocol execution via cross-sector collaboration models.
+                    </p>
+</div>
+</div>
+<div class="bg-surface-dark p-8 group transition-all hover:bg-panel-bg flex flex-col h-[480px]">
+<div class="flex justify-between items-start mb-8">
+<span class="font-mono text-[10px] text-primary">M_04 / COMBAT</span>
+<span class="material-symbols-outlined text-primary opacity-30 group-hover:opacity-100 transition-opacity">center_focus_strong</span>
+</div>
+<div class="flex-grow flex items-center justify-center relative overflow-hidden mb-8">
+<img alt="Code" class="w-full h-full object-cover opacity-20 grayscale group-hover:grayscale-0 group-hover:opacity-40 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDl3u5Gc4W9PqIhf6ngPri2D7ujHJMafHaHzH_6L_EO5HlHe_Sqm6UPMHYq6oTOAIbI2ekmbQtWcfaKB6L0avZYA7KzwsktSOhDtIux-AC_QwFtJAJpgI8rdIFrmw52MVNUQt3Et23zfYT3mvtQAkacBQPfCzYrZhTVFyYooL54aV0MWBwGfhdtYWYFzCPH9LbaRE2beBvA6_7kN1PPOTlmyty_IWuY7lHsIHGQYMMuZrlTSeMlW5H7LjAIu-zrIC0oP1vEfBy5yV4"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dark via-transparent to-transparent"></div>
+</div>
+<div>
+<h3 class="text-2xl font-headline font-bold text-white mb-3">Nexus Hackathon</h3>
+<p class="font-mono text-xs text-on-surface-variant leading-relaxed">
+                        Mission Objective: 24h operational CTF. Breach simulated hostile nodes and extract critical payloads. Full throttle execution required.
+                    </p>
+</div>
+</div>
+</div>
+</section>
+<section class="max-w-7xl mx-auto px-8 py-24">
+<div class="ui-panel p-px border-secondary/30">
+<div class="bg-black/60 grid grid-cols-1 lg:grid-cols-3">
+<div class="lg:col-span-2 p-8 border-b lg:border-b-0 lg:border-r border-panel-border">
+<div class="flex items-center gap-4 mb-8">
+<div class="w-3 h-3 bg-secondary rounded-full shadow-[0_0_10px_#00f3ff]"></div>
+<h3 class="text-xl font-mono font-bold text-white uppercase tracking-tighter">LIVE_INTEL_OVERRIDE</h3>
+</div>
+<div class="space-y-4 font-mono">
+<div class="flex gap-6 p-4 bg-surface-dark border border-panel-border group hover:border-secondary transition-colors">
+<span class="text-secondary text-xs">[14:02:44]</span>
+<span class="text-on-surface-variant text-xs uppercase">Inbound Intel: General VK Singh deployment confirmed for site inauguration.</span>
+</div>
+<div class="flex gap-6 p-4 bg-surface-dark border border-panel-border group hover:border-primary transition-colors">
+<span class="text-primary text-xs">[12:45:12]</span>
+<span class="text-on-surface-variant text-xs uppercase">Bounty Allocation: Nexus Hackathon reward pool escalated to 500,000 INR.</span>
+</div>
+<div class="flex gap-6 p-4 bg-surface-dark border border-panel-border group hover:border-secondary transition-colors">
+<span class="text-secondary text-xs">[09:10:05]</span>
+<span class="text-on-surface-variant text-xs uppercase">Load Balancing: Workshop capacity at 85%. Secure critical uplink immediately.</span>
+</div>
+</div>
+</div>
+<div class="p-8 flex flex-col items-center justify-center bg-black/40">
+<div class="relative w-48 h-48 mb-8">
+<div class="absolute inset-0 border-4 border-secondary/20 rounded-full border-dotted animate-[spin_10s_linear_infinite]"></div>
+<div class="absolute inset-4 border-2 border-primary/40 rounded-full border-dashed animate-[spin_7s_linear_infinite_reverse]"></div>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-headline text-5xl font-bold text-secondary">98<span class="text-xl">%</span></span>
+<span class="font-mono text-[9px] text-on-surface-variant tracking-widest uppercase mt-2">Integrity</span>
+</div>
+</div>
+<div class="w-full h-2 bg-panel-border relative overflow-hidden">
+<div class="absolute inset-y-0 left-0 bg-primary w-4/5 shadow-[0_0_10px_#ff00ff]"></div>
+</div>
+<div class="flex justify-between w-full mt-2 font-mono text-[10px] text-on-surface-variant">
+<span>SYSTEM_HARDENING</span>
+<span class="text-primary">ACTIVE</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="w-full py-12 px-8 bg-black border-t border-panel-border relative z-30">
+<div class="max-w-7xl mx-auto flex flex-col lg:flex-row justify-between items-center gap-8">
+<div class="flex flex-col gap-1">
+<div class="font-mono text-[10px] text-secondary tracking-[0.3em] uppercase">Secure Bharat Summit 2026</div>
+<div class="font-mono text-[9px] text-on-surface-variant tracking-widest opacity-50">© ALL SYSTEMS SECURED. ENCRYPTED COMMUNICATION PROTOCOL IN EFFECT.</div>
+</div>
+<div class="flex gap-10">
+<a class="font-mono text-[10px] text-on-surface-variant hover:text-primary transition-colors tracking-widest uppercase" href="#">Privacy_Protocol</a>
+<a class="font-mono text-[10px] text-on-surface-variant hover:text-primary transition-colors tracking-widest uppercase" href="#">Security_STDS</a>
+<a class="font-mono text-[10px] text-on-surface-variant hover:text-primary transition-colors tracking-widest uppercase" href="#">Contact_Command</a>
+</div>
+<div class="ui-panel px-4 py-2 border-secondary/20 flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-secondary animate-pulse"></div>
+<span class="font-mono text-[10px] text-secondary tracking-widest uppercase">Node_Link: Established</span>
+</div>
+</div>
+</footer>
+
+</body></html>

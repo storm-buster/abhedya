@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Chakra+Petch:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Poster-inspired cosmic purple palette */
+  --bg: #0a0a1a;
+  --bg-deep: #06061a;
+  --surface: rgba(15, 12, 40, 0.7);
+  --surface-solid: #0f0c28;
+  --surface-card: rgba(20, 15, 50, 0.6);
+  --border: rgba(120, 80, 220, 0.2);
+  --border-glow: rgba(120, 80, 220, 0.4);
+  --text-main: #e8e4f0;
+  --text-muted: #9b8ec4;
+  --text-dim: rgba(155, 142, 196, 0.5);
+
+  /* Primary: deep violet/purple (poster dominant) */
+  --primary: #9b4dff;
+  --primary-deep: #7b2fff;
+  --primary-glow: rgba(155, 77, 255, 0.4);
+  --primary-soft: rgba(155, 77, 255, 0.15);
+
+  /* Secondary: blue-cyan (poster accents from hexagons) */
+  --secondary: #4dc9f6;
+  --secondary-glow: rgba(77, 201, 246, 0.3);
+  --secondary-soft: rgba(77, 201, 246, 0.1);
+
+  /* Accent: warm magenta-pink (poster highlight from titles) */
+  --accent: #e040fb;
+  --accent-glow: rgba(224, 64, 251, 0.35);
+
+  /* Nebula colors */
+  --nebula-1: rgba(100, 40, 200, 0.15);
+  --nebula-2: rgba(60, 20, 160, 0.12);
+  --nebula-3: rgba(40, 100, 220, 0.08);
+
+  /* Fonts */
+  --headline-font: 'Orbitron', sans-serif;
+  --body-font: 'Inter', sans-serif;
+  --mono-font: 'JetBrains Mono', monospace;
+
+  /* Spacing & Sizing */
+  --header-height: 4.5rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.85rem;
+  --radius-lg: 1.2rem;
+  --radius-xl: 1.6rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  background-image:
+    radial-gradient(ellipse at 20% 0%, var(--nebula-1) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, var(--nebula-2) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 80%, var(--nebula-3) 0%, transparent 50%),
+    radial-gradient(ellipse at 10% 90%, rgba(155, 77, 255, 0.06) 0%, transparent 40%);
+  color: var(--text-main);
+  font-family: var(--body-font);
+  margin: 0;
+  min-height: 100vh;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  color: inherit;
+  font: inherit;
+}
+
+/* Selection */
+::selection {
+  background: var(--primary);
+  color: #fff;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--primary-deep);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
