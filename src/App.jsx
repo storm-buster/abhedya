@@ -153,7 +153,7 @@ function App() {
           </div>
 
           <div className="hero-badge">
-            ABHEDYA × DEFENDERS CONNECT — PRESENTS
+            ABHEDYA × DEFENDERS CONNECT × GGSIPU — PRESENTS
           </div>
 
           <h1 className="hero-title">
