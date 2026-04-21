@@ -50,7 +50,7 @@ const trackCards = [
     tag: 'CYBERNEXUS HACKATHON',
     title: 'CyberNexus Hackathon',
     description:
-      'Capture the flag. Breach the perimeter. Prize pool of ₹2,00,000+ awaits the best cyber warriors.',
+      'Capture the flag. Breach the perimeter. Prize pool of ₹1,00,000+ awaits the best cyber warriors.',
     tone: 'primary',
     icon: 'center_focus_strong',
     image:
@@ -66,7 +66,7 @@ const intelFeed = [
   },
   {
     time: '[12:45]',
-    text: 'Hackathon bounty pool increased to ₹2,00,000+. All systems go.',
+    text: 'Hackathon bounty pool increased to ₹1,00,000+. All systems go.',
     tone: 'secondary',
   },
   {
@@ -132,6 +132,17 @@ function App() {
 
       <main className="nexus-main">
         <section className="hero-section container" id="home">
+          {/* Organization Logos */}
+          <div className="hero-logos">
+            <div className="hero-logos-left">
+              <img alt="Abhedya" className="org-logo" src="/abhedya-logo.png" />
+              <img alt="Defenders Connect" className="org-logo" src="/defenders-logo.png" />
+            </div>
+            <div className="hero-logos-right">
+              <img alt="GGSIPU" className="org-logo org-logo-ipu" src="/ipu-logo.png" />
+            </div>
+          </div>
+
           <div className="hero-kernel">
             Secure Bharat Summit 2026
             <br />
@@ -209,25 +220,170 @@ function App() {
           </div>
 
           <div className="tracks-grid">
-            {trackCards.map((card) => (
-              <article
-                className={`track-card ${card.layout} tone-${card.tone}`}
-                id={card.id}
-                key={card.id}
-              >
-                <div className="track-media">
-                  <img alt={card.title} loading="lazy" src={card.image} />
-                  <div className="track-overlay">
-                    <span className={`track-tag tone-${card.tone}`}>{card.tag}</span>
-                    <h3>{card.title}</h3>
-                    <p>{card.description}</p>
+            {trackCards.map((card) =>
+              card.id === 'hackathon' ? (
+                <article
+                  className={`track-card ${card.layout} tone-${card.tone}`}
+                  id={card.id}
+                  key={card.id}
+                >
+                  <div className="track-media">
+                    <img alt={card.title} loading="lazy" src={card.image} />
+
+                    {/* Hackathon details in the upper empty space */}
+                    <div className="hackathon-details">
+                      <div className="hackathon-tracks-inline">
+                        <div className="track-pill-inline">
+                          <span className="material-symbols-outlined">shield</span>
+                          Cyber Security
+                        </div>
+                        <div className="track-pill-inline">
+                          <span className="material-symbols-outlined">token</span>
+                          Blockchain
+                        </div>
+                        <div className="track-pill-inline">
+                          <span className="material-symbols-outlined">smart_toy</span>
+                          Agentic AI
+                        </div>
+                        <div className="track-pill-inline">
+                          <span className="material-symbols-outlined">auto_awesome</span>
+                          Generative AI
+                        </div>
+                      </div>
+
+                      <div className="round-inline">
+                        <div className="round-inline-header">
+                          <span className="round-badge">01</span>
+                          <div>
+                            <span className="round-mode-inline">
+                              <span className="material-symbols-outlined">cloud</span>
+                              Online
+                            </span>
+                            <h4>PPT Submission Round</h4>
+                          </div>
+                        </div>
+                        <ul className="round-details-inline">
+                          <li>Submit a PPT explaining your innovative idea — problem statement, solution, tech stack, use case & impact.</li>
+                          <li>Top <strong>25 teams</strong> shortlisted for the finale.</li>
+                        </ul>
+                      </div>
+
+                      <div className="round-inline round-inline-finale">
+                        <div className="round-inline-header">
+                          <span className="round-badge round-badge-finale">02</span>
+                          <div>
+                            <span className="round-mode-inline round-mode-accent">
+                              <span className="material-symbols-outlined">location_on</span>
+                              Offline — 2nd May 2026
+                            </span>
+                            <h4>Offline Grand Finale</h4>
+                          </div>
+                        </div>
+                        <ul className="round-details-inline">
+                          <li>Top 25 teams present working prototype/MVP before judges at <strong>GGSIPU-EDC, Delhi</strong>.</li>
+                          <li>Live judging, mentoring, networking & final presentations.</li>
+                        </ul>
+                      </div>
+
+                      <p className="hackathon-prize">
+                        <span className="material-symbols-outlined">emoji_events</span>
+                        Prize Pool: ₹1,00,000+
+                      </p>
+                    </div>
+
+                    {/* Original overlay at bottom */}
+                    <div className="track-overlay">
+                      <span className={`track-tag tone-${card.tone}`}>{card.tag}</span>
+                      <h3>{card.title}</h3>
+                      <p>{card.description}</p>
+                    </div>
+                    <span aria-hidden="true" className="material-symbols-outlined track-icon">
+                      {card.icon}
+                    </span>
                   </div>
-                  <span aria-hidden="true" className="material-symbols-outlined track-icon">
-                    {card.icon}
-                  </span>
+                </article>
+              ) : (
+                <article
+                  className={`track-card ${card.layout} tone-${card.tone}`}
+                  id={card.id}
+                  key={card.id}
+                >
+                  <div className="track-media">
+                    <img alt={card.title} loading="lazy" src={card.image} />
+                    <div className="track-overlay">
+                      <span className={`track-tag tone-${card.tone}`}>{card.tag}</span>
+                      <h3>{card.title}</h3>
+                      <p>{card.description}</p>
+                    </div>
+                    <span aria-hidden="true" className="material-symbols-outlined track-icon">
+                      {card.icon}
+                    </span>
+                  </div>
+                </article>
+              )
+            )}
+          </div>
+        </section>
+
+        {/* ===== SPONSORS SECTION ===== */}
+        <section className="sponsors-section container" id="sponsors">
+          <div className="sponsors-header">
+            <p className="section-kicker">// Our Partners</p>
+            <h2>Sponsors</h2>
+          </div>
+
+          <div className="sponsors-grid">
+            {/* Gold Sponsor */}
+            <div className="sponsor-tier sponsor-gold">
+              <div className="tier-label">
+                <span className="material-symbols-outlined">workspace_premium</span>
+                Gold Sponsor
+              </div>
+              <div className="sponsor-logos">
+                <div className="sponsor-logo-card">
+                  <span className="sponsor-coming-soon">Coming Soon</span>
                 </div>
-              </article>
-            ))}
+              </div>
+            </div>
+
+            {/* Silver Sponsor */}
+            <div className="sponsor-tier sponsor-silver">
+              <div className="tier-label">
+                <span className="material-symbols-outlined">military_tech</span>
+                Silver Sponsor
+              </div>
+              <div className="sponsor-logos">
+                <div className="sponsor-logo-card">
+                  <img alt="Otticamart" src="/otticamart-logo.svg" />
+                </div>
+              </div>
+            </div>
+
+            {/* Powered By */}
+            <div className="sponsor-tier sponsor-powered">
+              <div className="tier-label">
+                <span className="material-symbols-outlined">bolt</span>
+                Powered By
+              </div>
+              <div className="sponsor-logos">
+                <div className="sponsor-logo-card">
+                  <img alt="Unstop" src="/unstop-logo.svg" />
+                </div>
+              </div>
+            </div>
+
+            {/* General Sponsor */}
+            <div className="sponsor-tier sponsor-general">
+              <div className="tier-label">
+                <span className="material-symbols-outlined">handshake</span>
+                General Sponsor
+              </div>
+              <div className="sponsor-logos">
+                <div className="sponsor-logo-card">
+                  <img alt="CodeCrafters" src="/codecrafters-2.svg" />
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -272,7 +428,7 @@ function App() {
             <p className="section-kicker">Registration Open</p>
             <h3>Reserve your spot at Secure Bharat Summit 2026</h3>
           </div>
-          <a href="https://www.SecureBharatSummit.xyz">Register Now →</a>
+          <a href="https://unstop.com/college-fests/secure-bharat-summit-guru-gobind-singh-indraprastha-university-ggsipu-delhi-460416">Register Now →</a>
         </section>
       </main>
 
