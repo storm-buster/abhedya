@@ -1,89 +1,38 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
+import { motion } from 'motion/react'
 import CyberScene from './components/CyberScene'
-import './App.css'
+import RippleGrid from './components/RippleGrid'
+import CountdownTimer from './components/CountdownTimer'
+import BlurText from './components/BlurText'
+import FAQ from './components/FAQ'
+import './styles/layout.css'
+import './styles/hero.css'
+import './styles/tracks.css'
+import './styles/sections.css'
+import './styles/components.css'
+import './styles/responsive.css'
 
-const navLinks = [
-  { href: '#workshops', label: 'Workshops', isActive: true },
-  { href: '#sessions', label: 'Sessions' },
-  { href: '#panels', label: 'Panels' },
-  { href: '#hackathon', label: 'Hackathon' },
-]
+const titleBlur = (i) => ({
+  initial: { filter: 'blur(10px)', opacity: 0, y: -40 },
+  animate: { filter: ['blur(10px)', 'blur(5px)', 'blur(0px)'], opacity: [0, 0.5, 1], y: [-40, 5, 0] },
+  transition: { duration: 0.7, delay: i * 0.15, ease: [0.25, 0.46, 0.45, 0.94] },
+})
 
-const trackCards = [
-  {
-    id: 'workshops',
-    layout: 'wide',
-    tag: 'TECH WORKSHOP',
-    title: 'Tech Workshops',
-    description:
-      'Hands-on labs with real-time exploitation scenarios and defensive reconfigurations for industrial-grade systems.',
-    tone: 'primary',
-    icon: 'terminal',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuDkHsjCWMI_p3e9Oqbe5yjr23jLSyqox7XG618xC7K-iQNC73-OPK3x6oljzJ_T-HcTx_teSSVkMiOILq2JRoJnvMcraEzVwSy0l_9K-8WjCCKVngdCQ7T2ulimk1KxpVnoRyrzG0Whkc-rwMbn007XQb3ryLbL3Z7t-ADqu3YvbCKLI5FOaWY47W2gOnAlhNA-vMD8f4hYIsFZ5y0J1MkjU8rFGJtRyXiSQ1oDC08pUc_C0god21e21srvmJEoX89pfsKQqMLKWhY',
-  },
-  {
-    id: 'sessions',
-    layout: 'narrow',
-    tag: 'EXPERT SEMINARS',
-    title: 'Expert Sessions',
-    description: 'Threat intelligence briefings and architectural hardening strategies from industry leaders.',
-    tone: 'secondary',
-    icon: 'security',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuBRUDt6cSEGwKo4SuH5FNFLeUhu6-uE8sPw5coMmzceUR32sPaqF-bW_6qx5h_mcnwuj85oy3RGSfPSrj8YU5VctUe3Q5NxOHlQCKnPoVvujhjnLIYRPOXozGqPgvwupzfX5yut_4WLYp4R9jE_q3Umay-R-PMrTv2gda2U94cGKG7gkJQX_TUIxDGSY92G9AuvEkneQZD9TUIrbPnWPc7xvvvVG_lArCTGQjw7Rc4pW2eNRUKuV4KVd6RY7j0dxUnu5a13K5YXAI8',
-  },
-  {
-    id: 'panels',
-    layout: 'narrow',
-    tag: 'PANEL DISCUSSION',
-    title: 'Panel Discussion',
-    description: 'Sovereign security and national defense infrastructure debate with top experts.',
-    tone: 'primary',
-    icon: 'groups',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuCvpmlUfb8r6UQVI9MX1pnW1mokc7gjuIybjoRXoI5KiHjcRovYlFLx4lE2HnSX_qb3ujQwAWqTgMxlo0CIhDDjep5PhtE7oD4lLYBbmJ5gojdtHKlUlY9ol8Je832xNG4zU1rhHhWTLY_4V_k-qvmDiF0aDzwZf9_edak3RDSqRIBHJKnqY56CVNS60sV4qyTTWMgXqsHMYGO81R_mf0COEmwI2A_pAEDDckpLWvyngpWFy1DduHBRv3DiLt2-YaOuq-rRFM1rh4A',
-  },
-  {
-    id: 'hackathon',
-    layout: 'wide',
-    tag: 'CYBERNEXUS HACKATHON',
-    title: 'CyberNexus Hackathon',
-    description:
-      'Capture the flag. Breach the perimeter. Prize pool of ₹1,00,000+ awaits the best cyber warriors.',
-    tone: 'primary',
-    icon: 'center_focus_strong',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuDl3u5Gc4W9PqIhf6ngPri2D7ujHJMafHaHzH_6L_EO5HlHe_Sqm6UPMHYq6oTOAIbI2ekmbQtWcfaKB6L0avZYA7KzwsktSOhDtIux-AC_QwFtJAJpgI8rdIFrmw52MVNUQt3Et23zfYT3mvtQAkacBQPfCzYrZhTVFyYooL54aV0MWBwGfhdtYWYFzCPH9LbaRE2beBvA6_7kN1PPOTlmyty_IWuY7lHsIHGQYMMuZrlTSeMlW5H7LjAIu-zrIC0oP1vEfBy5yV4',
-  },
-]
+const kernelBlur = (i) => ({
+  initial: { filter: 'blur(8px)', opacity: 0, y: -30 },
+  animate: { filter: ['blur(8px)', 'blur(4px)', 'blur(0px)'], opacity: [0, 0.5, 1], y: [-30, 3, 0] },
+  transition: { duration: 0.6, delay: 0.6 + i * 0.12, ease: [0.25, 0.46, 0.45, 0.94] },
+})
 
-const intelFeed = [
-  {
-    time: '[14:02]',
-    text: 'General VK Singh confirms attendance for inauguration ceremony.',
-    tone: 'primary',
-  },
-  {
-    time: '[12:45]',
-    text: 'Hackathon bounty pool increased to ₹1,00,000+. All systems go.',
-    tone: 'secondary',
-  },
-  {
-    time: '[09:10]',
-    text: 'Workshop capacity at 85%. Secure your seats immediately.',
-    tone: 'neutral',
-  },
-]
-
-const footerLinks = [
-  'Privacy Policy',
-  'Security Standards',
-  'Contact Us',
-]
+import {
+  navLinks, trackCards, intelFeed, footerLinks,
+  faqItems, socialLinks, speakers
+} from './data/siteData'
 
 function App() {
   const pointerRef = useRef({ x: 0, y: 0 })
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [showFloatingCta, setShowFloatingCta] = useState(false)
 
   useEffect(() => {
     const handlePointerMove = (event) => {
@@ -98,9 +47,55 @@ function App() {
     }
   }, [])
 
+  /* Scroll-triggered reveal animations + floating CTA visibility */
+  useEffect(() => {
+    const revealEls = document.querySelectorAll('.reveal')
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('is-visible')
+            observer.unobserve(e.target)
+          }
+        })
+      },
+      { threshold: 0.1 }
+    )
+    revealEls.forEach((el) => observer.observe(el))
+
+    const handleScroll = () => {
+      setShowFloatingCta(window.scrollY > 600)
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  const toggleMenu = useCallback(() => setMenuOpen((v) => !v), [])
+  const closeMenu = useCallback(() => setMenuOpen(false), [])
+
   return (
     <div className="nexus-page">
-      <div aria-hidden="true" className="nexus-layer hex-grid"></div>
+      {/* Skip to content link for accessibility */}
+      <a href="#home" className="skip-link">Skip to content</a>
+
+      <div aria-hidden="true" className="nexus-layer ripple-bg">
+        <RippleGrid
+          gridColor="#eecef2"
+          rippleIntensity={0.01}
+          gridSize={10}
+          gridThickness={15}
+          vignetteStrength={0.5}
+          glowIntensity={0.2}
+          opacity={0.25}
+          gridRotation={45}
+          mouseInteraction
+          mouseInteractionRadius={0.8}
+        />
+      </div>
       <div aria-hidden="true" className="nexus-layer scanlines"></div>
 
       <header className="nexus-header">
@@ -112,7 +107,7 @@ function App() {
             </span>
           </a>
 
-          <nav aria-label="Primary" className="nexus-nav">
+          <nav aria-label="Primary" className="nexus-nav desktop-nav">
             {navLinks.map((link) => (
               <a
                 className={link.isActive ? 'is-active' : ''}
@@ -124,11 +119,37 @@ function App() {
             ))}
           </nav>
 
-          <a className="header-button" href="#register">
+          <div className="header-actions">
+            <a className="header-button" href="#register">
+              Register Now
+            </a>
+            <button
+              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+              className={`hamburger-btn ${menuOpen ? 'is-open' : ''}`}
+              onClick={toggleMenu}
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile slide-down menu */}
+        <nav className={`mobile-menu ${menuOpen ? 'is-open' : ''}`} aria-label="Mobile">
+          {navLinks.map((link) => (
+            <a href={link.href} key={link.href} onClick={closeMenu}>
+              {link.label}
+            </a>
+          ))}
+          <a href="#register" className="mobile-menu-cta" onClick={closeMenu}>
             Register Now
           </a>
-        </div>
+        </nav>
       </header>
+
+      {/* Mobile menu backdrop */}
+      {menuOpen && <div className="mobile-backdrop" onClick={closeMenu} aria-hidden="true" />}
 
       <main className="nexus-main">
         <section className="hero-section container" id="home">
@@ -143,30 +164,42 @@ function App() {
             </div>
           </div>
 
-          <div className="hero-kernel">
-            Secure Bharat Summit 2026
-            <br />
-            The Cybersecurity Club — GGSIPU
-            <br />
-            Defenders of the Digital Age
-            <div className="kernel-line"></div>
-          </div>
-
           <div className="hero-badge">
             ABHEDYA × DEFENDERS CONNECT × GGSIPU — PRESENTS
           </div>
 
-          <h1 className="hero-title">
-            <span className="hero-title-line1">
-              <span className="title-secure">SECURE</span>{' '}
-              <span className="title-bharat">BHARAT</span>
-            </span>
-            <br />
-            <span className="hero-title-line2">
-              <span className="title-summit">SUMMIT</span>{' '}
-              <span className="title-26">26</span>
-            </span>
-          </h1>
+          {/* Countdown Timer */}
+          <CountdownTimer variant="inline" />
+
+          {/* Title block with kernel text positioned inside */}
+          <div className="summit-title-block">
+            <h1 className="hero-title">
+              <span className="hero-title-line1">
+                <motion.span className="title-secure" {...titleBlur(0)}>SECURE</motion.span>{' '}
+                <motion.span className="title-bharat" {...titleBlur(1)}>BHARAT</motion.span>
+              </span>
+              <br />
+              <span className="hero-title-line2">
+                <motion.span className="title-summit" {...titleBlur(2)}>SUMMIT</motion.span>{' '}
+                <motion.span className="title-26" {...titleBlur(3)}>26</motion.span>
+              </span>
+            </h1>
+
+            <motion.div className="hero-kernel" {...kernelBlur(0)}>
+              <motion.span {...kernelBlur(0)} style={{ display: 'block' }}>Secure Bharat Summit 2026</motion.span>
+              <motion.span {...kernelBlur(1)} style={{ display: 'block' }}>The Cybersecurity Club — GGSIPU</motion.span>
+              <motion.span {...kernelBlur(2)} style={{ display: 'block' }}>Defenders of the Digital Age</motion.span>
+              <div className="kernel-line"></div>
+            </motion.div>
+          </div>
+
+          <BlurText
+            text="The nation's premier cybersecurity summit bringing together tech workshops, expert seminars, panel discussions, and the CyberNexus Hackathon — all under one roof. Defend. Innovate. Lead."
+            delay={150}
+            animateBy="words"
+            direction="top"
+            className="hero-description"
+          />
 
           <div className="hero-meta">
             <article className="meta-item">
@@ -175,19 +208,19 @@ function App() {
               </span>
               <span>2nd May 2026</span>
             </article>
-            <article className="meta-item">
+            <a 
+              className="meta-item location-link" 
+              href="https://maps.app.goo.gl/jNrYHFYb89PnYFss8" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              title="View on Google Maps"
+            >
               <span aria-hidden="true" className="material-symbols-outlined">
                 location_on
               </span>
               <span>GGSIPU EDC Auditorium</span>
-            </article>
+            </a>
           </div>
-
-          <p className="hero-description">
-            The nation&apos;s premier cybersecurity summit bringing together
-            tech workshops, expert seminars, panel discussions, and the
-            CyberNexus Hackathon — all under one roof. Defend. Innovate. Lead.
-          </p>
 
           <div className="hero-actions">
             <a className="hero-cta hero-cta-primary" href="#register">
@@ -198,7 +231,7 @@ function App() {
             </a>
           </div>
 
-          <div className="hero-scene-shell">
+          <div className="hero-scene-shell skeleton-glow">
             <CyberScene mode="hero" pointerRef={pointerRef} />
             <p className="scene-label">
               Interactive 3D Visualization • Move cursor to shift camera • Click to energize
@@ -206,7 +239,7 @@ function App() {
           </div>
         </section>
 
-        <section className="tracks-section container" id="tracks">
+        <section className="tracks-section container reveal" id="tracks">
           <div className="tracks-header">
             <div>
               <p className="section-kicker">// Event Tracks</p>
@@ -215,7 +248,14 @@ function App() {
             <p className="tracks-ref">
               2nd May 2026
               <br />
-              GGSIPU EDC Auditorium
+              <a 
+                href="https://maps.app.goo.gl/jNrYHFYb89PnYFss8" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="location-inline-link"
+              >
+                GGSIPU EDC Auditorium
+              </a>
             </p>
           </div>
 
@@ -251,47 +291,118 @@ function App() {
                         </div>
                       </div>
 
-                      <div className="round-inline">
-                        <div className="round-inline-header">
-                          <span className="round-badge">01</span>
+                      <div className="hackathon-meta-grid">
+                        <div className="hackathon-meta-item">
+                          <span className="material-symbols-outlined">groups</span>
                           <div>
-                            <span className="round-mode-inline">
-                              <span className="material-symbols-outlined">cloud</span>
-                              Online
-                            </span>
-                            <h4>PPT Submission Round</h4>
+                            <h6>Eligibility</h6>
+                            <p>Teams of 2-4 UG/PG students (Inter-college/specialization allowed)</p>
                           </div>
                         </div>
-                        <ul className="round-details-inline">
-                          <li>Submit a PPT explaining your innovative idea — problem statement, solution, tech stack, use case & impact.</li>
-                          <li>Top <strong>25 teams</strong> shortlisted for the finale.</li>
-                        </ul>
-                      </div>
-
-                      <div className="round-inline round-inline-finale">
-                        <div className="round-inline-header">
-                          <span className="round-badge round-badge-finale">02</span>
+                        <div className="hackathon-meta-item">
+                          <span className="material-symbols-outlined">emoji_events</span>
                           <div>
-                            <span className="round-mode-inline round-mode-accent">
-                              <span className="material-symbols-outlined">location_on</span>
-                              Offline — 2nd May 2026
-                            </span>
-                            <h4>Offline Grand Finale</h4>
+                            <h6>Prize Pool</h6>
+                            <p>Cash prize + goodies worth ₹1,00,000+</p>
                           </div>
                         </div>
-                        <ul className="round-details-inline">
-                          <li>Top 25 teams present working prototype/MVP before judges at <strong>GGSIPU-EDC, Delhi</strong>.</li>
-                          <li>Live judging, mentoring, networking & final presentations.</li>
-                        </ul>
                       </div>
 
-                      <p className="hackathon-prize">
-                        <span className="material-symbols-outlined">emoji_events</span>
-                        Prize Pool: ₹1,00,000+
-                      </p>
+                      <div className="rounds-container">
+                        <div className="round-inline">
+                          <div className="round-inline-header">
+                            <span className="round-badge">01</span>
+                            <div>
+                              <span className="round-mode-inline">
+                                <span className="material-symbols-outlined">cloud</span>
+                                Online PPT Screening
+                              </span>
+                              <h4>Problem &amp; Solution Pitch</h4>
+                            </div>
+                          </div>
+                          <ul className="round-details-inline">
+                            <li>Focus on uniqueness, tech stack, scalability, and expected impact.</li>
+                          </ul>
+                        </div>
+
+                        <div className="round-inline round-inline-finale">
+                          <div className="round-inline-header">
+                            <span className="round-badge round-badge-finale">02</span>
+                            <div>
+                              <span className="round-mode-inline round-mode-accent">
+                                <span className="material-symbols-outlined">location_on</span>
+                                Offline — May 2, 2026 (10AM - 6PM)
+                              </span>
+                              <h4>Grand Finale @ GGSIPU-EDC</h4>
+                            </div>
+                          </div>
+                          <ul className="round-details-inline">
+                            <li>Showcase working prototype/MVP. Explain architecture &amp; business impact.</li>
+                          </ul>
+                        </div>
+                      </div>
+
+                      <div className="hackathon-criteria">
+                        <h6>Evaluation Criteria:</h6>
+                        <p>Originality, technical execution, creativity, scalability, and real-world impact.</p>
+                        <small>* Plagiarism leads to disqualification. Open-source APIs allowed.</small>
+                      </div>
+
+                      <a href="https://unstop.com/hackathons/cyber-nexus-hackathon-secure-bharat-summit-guru-gobind-singh-indraprastha-university-ggsipu-delhi-1676534" className="hackathon-reg-btn">
+                        Register to Hackathon
+                        <span className="material-symbols-outlined">arrow_outward</span>
+                      </a>
                     </div>
 
                     {/* Original overlay at bottom */}
+                    <div className="track-overlay">
+                      <span className={`track-tag tone-${card.tone}`}>{card.tag}</span>
+                      <h3>{card.title}</h3>
+                      <p>{card.description}</p>
+                    </div>
+                    <span aria-hidden="true" className="material-symbols-outlined track-icon">
+                      {card.icon}
+                    </span>
+                  </div>
+                </article>
+              ) : card.id === 'sessions' ? (
+                <article
+                  className={`track-card ${card.layout} tone-${card.tone}`}
+                  id={card.id}
+                  key={card.id}
+                >
+                  <div className="track-media">
+                    <img alt={card.title} loading="lazy" src={card.image} />
+
+                    {/* Speakers List */}
+                    <div className="speakers-details">
+                      <div className="speakers-header-inline">
+                        <span className="material-symbols-outlined">campaign</span>
+                        Featured Speakers
+                      </div>
+                      <div className="speakers-list">
+                        {speakers.map((speaker, idx) => (
+                          <div key={idx} className="speaker-item">
+                            <div className="speaker-info">
+                              <span className="speaker-label">Speaker</span>
+                              <span className="speaker-name">{speaker.name}</span>
+                            </div>
+                            <a
+                              href={speaker.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="linkedin-link-icon"
+                              title={`View ${speaker.name}'s LinkedIn`}
+                            >
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                              </svg>
+                            </a>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
                     <div className="track-overlay">
                       <span className={`track-tag tone-${card.tone}`}>{card.tag}</span>
                       <h3>{card.title}</h3>
@@ -326,7 +437,7 @@ function App() {
         </section>
 
         {/* ===== SPONSORS SECTION ===== */}
-        <section className="sponsors-section container" id="sponsors">
+        <section className="sponsors-section container reveal" id="sponsors">
           <div className="sponsors-header">
             <p className="section-kicker">// Our Partners</p>
             <h2>Sponsors</h2>
@@ -384,10 +495,23 @@ function App() {
                 </div>
               </div>
             </div>
+
+            {/* General Sponsor 2 */}
+            <div className="sponsor-tier sponsor-general">
+              <div className="tier-label">
+                <span className="material-symbols-outlined">handshake</span>
+                General Sponsor
+              </div>
+              <div className="sponsor-logos">
+                <div className="sponsor-logo-card">
+                  <img alt=".xyz" src="/xyz-logo-png.png" />
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
-        <section className="intel-section container" id="intel">
+        <section className="intel-section container reveal" id="intel">
           <div className="intel-shell">
             <div className="intel-feed">
               <div className="feed-title-row">
@@ -406,7 +530,7 @@ function App() {
             </div>
 
             <aside className="intel-visual">
-              <div className="intel-scene">
+              <div className="intel-scene skeleton-glow">
                 <CyberScene mode="compact" pointerRef={pointerRef} />
               </div>
               <div className="intel-score">
@@ -423,12 +547,75 @@ function App() {
           </div>
         </section>
 
-        <section className="register-strip container" id="register">
+        <section className="register-strip container reveal" id="register">
           <div>
             <p className="section-kicker">Registration Open</p>
             <h3>Reserve your spot at Secure Bharat Summit 2026</h3>
           </div>
-          <a href="https://unstop.com/college-fests/secure-bharat-summit-guru-gobind-singh-indraprastha-university-ggsipu-delhi-460416">Register Now →</a>
+          <a href="https://unstop.com/workshops-webinars/secure-bharat-summit-secure-bharat-summit-guru-gobind-singh-indraprastha-university-ggsipu-delhi-1676571">Register Now →</a>
+        </section>
+
+        {/* ===== FAQ SECTION ===== */}
+        <section className="faq-section container reveal" id="faq">
+          <div className="faq-header">
+            <p className="section-kicker">// FAQ</p>
+            <h2>Frequently Asked Questions</h2>
+          </div>
+          <FAQ items={faqItems} />
+        </section>
+
+        {/* ===== PRIVACY POLICY SECTION ===== */}
+        <section className="privacy-section container reveal" id="privacy">
+          <div className="privacy-card">
+            <div className="privacy-header">
+              <span className="material-symbols-outlined">shield_lock</span>
+              <h3>Privacy Policy</h3>
+            </div>
+            <div className="privacy-content">
+              <p>
+                At Secure Bharat Summit, your privacy is our priority. We are committed to protecting
+                the personal information you share with us during registration and participation.
+              </p>
+
+              <div className="privacy-sub-section">
+                <h4>1. Data Collection</h4>
+                <p>
+                  We collect essential information such as your name, college, email, and contact details
+                  primarily for organizing the summit and coordinating hackathon team activities.
+                </p>
+              </div>
+
+              <div className="privacy-sub-section">
+                <h4>2. Information Usage</h4>
+                <p>
+                  Your data is used solely for event-related communications, security clearance at the
+                  GGSIPU EDC campus, and for issuing certificates of participation.
+                </p>
+              </div>
+
+              <div className="privacy-sub-section">
+                <h4>3. Data Security</h4>
+                <p>
+                  All submitted data is stored in secured databases with restricted access. We implement
+                  industry-standard encryption to protect your sensitive information from unauthorized access.
+                </p>
+              </div>
+
+              <div className="privacy-sub-section">
+                <h4>4. Third-Party Sharing</h4>
+                <p>
+                  We do not sell or lease your data. Information may only be shared with official partners
+                  (like Unstop for registration) strictly for event execution purposes.
+                </p>
+              </div>
+
+              <p className="privacy-contact-footer">
+                For questions or data deletion requests, contact our team at:
+                <br />
+                <strong>abhedyathecybersecclub@gmail.com</strong>
+              </p>
+            </div>
+          </div>
         </section>
       </main>
 
@@ -441,12 +628,27 @@ function App() {
               <br />
               All Rights Reserved. www.SecureBharatSummit.xyz
             </p>
+            <div className="social-links">
+              {socialLinks.map((s) => (
+                <a href={s.href} key={s.label} aria-label={s.label} target="_blank" rel="noopener noreferrer">
+                  {s.isCustom ? (
+                    <div className="custom-icon-wrapper">
+                      <svg viewBox="0 0 24 24" fill="currentColor"><path d={s.svgPath} /></svg>
+                    </div>
+                  ) : (
+                    <span className="material-symbols-outlined">{s.icon}</span>
+                  )}
+                  {s.label}
+                </a>
+              ))}
+            </div>
           </div>
 
           <div className="footer-links">
             {footerLinks.map((item) => (
-              <a href="#home" key={item}>
-                {item}
+              <a href={item.href} key={item.label}>
+                {item.icon && <span className="material-symbols-outlined" style={{ fontSize: '1rem', verticalAlign: 'middle', marginRight: '0.4rem' }}>{item.icon}</span>}
+                {item.label}
               </a>
             ))}
           </div>
@@ -457,6 +659,22 @@ function App() {
           </div>
         </div>
       </footer>
+
+      {/* Floating CTA bar */}
+      <div className={`floating-cta ${showFloatingCta ? 'is-visible' : ''}`}>
+        <CountdownTimer variant="floating" />
+      </div>
+
+      {/* Scroll-to-top button */}
+      {showFloatingCta && (
+        <button
+          className="scroll-top-btn"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          aria-label="Scroll to top"
+        >
+          <span className="material-symbols-outlined">keyboard_arrow_up</span>
+        </button>
+      )}
     </div>
   )
 }

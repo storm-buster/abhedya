@@ -1,0 +1,384 @@
+/* ===== HERO ===== */
+.hero-section {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: calc(100svh - var(--header-height));
+  padding-block: 3rem 4rem;
+  position: relative;
+  text-align: center;
+}
+
+/* Hero Organization Logos */
+.hero-logos {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  position: absolute;
+  top: 1rem;
+  left: 0;
+  right: 0;
+  padding: 0 1rem;
+  z-index: 3;
+}
+
+.hero-logos-left {
+  align-items: center;
+  display: flex;
+  gap: 1.2rem;
+}
+
+.hero-logos-right {
+  align-items: center;
+  display: flex;
+}
+
+.org-logo {
+  height: 3.5rem;
+  object-fit: contain;
+  width: auto;
+  filter: drop-shadow(0 0 8px rgba(155, 77, 255, 0.15));
+  transition: all 300ms ease;
+}
+
+.org-logo:hover {
+  filter: drop-shadow(0 0 16px rgba(155, 77, 255, 0.35));
+  transform: scale(1.05);
+}
+
+.org-logo-ipu {
+  height: 4rem;
+}
+
+/* Summit page title block — kernel text sits between the two title lines */
+.summit-title-block {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.summit-title-block .hero-kernel {
+  position: absolute !important;
+  left: 1rem !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  text-align: left !important;
+}
+
+.summit-title-block .hero-title {
+  margin: 0;
+}
+
+.hero-kernel {
+  color: var(--text-dim);
+  font-family: var(--mono-font);
+  font-size: 0.6rem;
+  left: 1rem;
+  letter-spacing: 0.05em;
+  line-height: 1.5;
+  position: absolute;
+  text-align: left;
+  top: 24%;
+}
+
+.kernel-line {
+  background: linear-gradient(90deg, var(--primary), transparent);
+  border-radius: 2px;
+  height: 2px;
+  margin-top: 0.4rem;
+  width: 6rem;
+}
+
+.hero-badge {
+  background: var(--surface);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--primary);
+  border-radius: var(--radius-sm);
+  color: var(--primary);
+  font-family: var(--mono-font);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  margin-bottom: 1.2rem;
+  padding: 0.5rem 1.1rem;
+  text-transform: uppercase;
+}
+
+.hero-title {
+  font-family: 'Chakra Petch', var(--headline-font);
+  font-size: clamp(3.2rem, 10vw, 8rem);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 0.75;
+  margin: 0;
+  text-transform: uppercase;
+  color: transparent;
+  position: relative;
+  text-align: center;
+  /* 3D depth extrusion — heavy like poster */
+  filter:
+    drop-shadow(0 2px 0 rgba(50, 15, 80, 1)) drop-shadow(0 4px 0 rgba(40, 10, 70, 0.85)) drop-shadow(0 6px 0 rgba(30, 8, 55, 0.7)) drop-shadow(0 8px 1px rgba(20, 5, 40, 0.55)) drop-shadow(0 10px 2px rgba(10, 2, 25, 0.4)) drop-shadow(0 0 15px rgba(120, 50, 180, 0.25)) drop-shadow(0 0 50px rgba(100, 30, 160, 0.12));
+}
+
+.hero-title-line1,
+.hero-title-line2 {
+  display: block;
+}
+
+/* ====== SECURE — dark purple with circuit-line stripes, but readable ====== */
+.title-secure {
+  display: inline-block;
+  background:
+    repeating-linear-gradient(
+      180deg,
+      transparent 0px,
+      transparent 3px,
+      rgba(0, 0, 0, 0.25) 3px,
+      rgba(0, 0, 0, 0.25) 5px
+    ),
+    linear-gradient(
+      180deg,
+      #a878c8 0%,
+      #8a58b0 25%,
+      #7040a0 50%,
+      #5a2890 75%,
+      #4a1880 100%
+    );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 0.5px rgba(160, 100, 220, 0.35);
+}
+
+/* ====== BHARAT — brighter lilac/pink, also with subtle stripes ====== */
+.title-bharat {
+  display: inline-block;
+  background:
+    repeating-linear-gradient(180deg,
+      transparent 0px,
+      transparent 3px,
+      rgba(0, 0, 0, 0.2) 3px,
+      rgba(0, 0, 0, 0.2) 5px),
+    linear-gradient(180deg,
+      #e8c8f8 0%,
+      #d4a0ee 20%,
+      #c080e0 45%,
+      #b060d8 70%,
+      #9840c0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px rgba(200, 140, 255, 0.25);
+}
+
+/* ====== SUMMIT — medium purple-pink with stripes ====== */
+.title-summit {
+  display: inline-block;
+  background:
+    repeating-linear-gradient(180deg,
+      transparent 0px,
+      transparent 3px,
+      rgba(0, 0, 0, 0.25) 3px,
+      rgba(0, 0, 0, 0.25) 5px),
+    linear-gradient(180deg,
+      #c898e8 0%,
+      #b870d8 25%,
+      #a850c8 50%,
+      #c040b8 75%,
+      #d030a0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px rgba(180, 100, 220, 0.3);
+}
+
+/* ====== 26 — bold pink/rose, slightly larger ====== */
+.title-26 {
+  display: inline-block;
+  background:
+    repeating-linear-gradient(180deg,
+      transparent 0px,
+      transparent 3px,
+      rgba(0, 0, 0, 0.2) 3px,
+      rgba(0, 0, 0, 0.2) 5px),
+    linear-gradient(180deg,
+      #e0a0e8 0%,
+      #d870d8 20%,
+      #d050c0 45%,
+      #e038a8 70%,
+      #f02090 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px rgba(220, 100, 200, 0.25);
+  font-size: 1.1em;
+}
+
+.hero-meta {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  display: grid;
+  gap: 1px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 1.5rem;
+  max-width: 72rem;
+  overflow: hidden;
+  width: 100%;
+}
+
+.meta-item {
+  align-items: center;
+  background: var(--surface);
+  backdrop-filter: blur(12px);
+  display: inline-flex;
+  gap: 0.8rem;
+  justify-content: center;
+  min-height: 4.8rem;
+  padding: 0.8rem 1.2rem;
+}
+
+.meta-item span:last-child {
+  color: #fff;
+  font-family: var(--headline-font);
+  font-size: clamp(1rem, 2.8vw, 1.5rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.location-link {
+  text-decoration: none;
+  transition: all 250ms ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.location-link:hover {
+  background: var(--primary-soft);
+  box-shadow: inset 0 0 20px var(--primary-glow);
+}
+
+.location-link:hover span:last-child {
+  color: var(--primary);
+  text-shadow: 0 0 10px var(--primary-glow);
+}
+
+.location-inline-link {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dashed var(--text-dim);
+  transition: all 200ms ease;
+}
+
+.location-inline-link:hover {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+
+.material-symbols-outlined {
+  color: var(--primary);
+  font-size: 1.8rem;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.hero-description {
+  color: var(--text-muted);
+  font-family: var(--body-font);
+  font-size: 1rem;
+  justify-content: center;
+  text-align: center;
+  letter-spacing: 0.01em;
+  line-height: 1.7;
+  margin: 1.5rem auto 0;
+  max-width: 64ch;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.8rem;
+}
+
+.hero-cta {
+  align-items: center;
+  border: 1px solid;
+  border-radius: var(--radius-md);
+  display: inline-flex;
+  font-family: var(--headline-font);
+  font-size: clamp(0.75rem, 1.8vw, 0.9rem);
+  font-weight: 700;
+  justify-content: center;
+  letter-spacing: 0.08em;
+  min-height: 3.5rem;
+  min-width: 15rem;
+  padding: 0.7rem 1.8rem;
+  text-transform: uppercase;
+  transition: all 280ms ease;
+}
+
+.hero-cta-primary {
+  background: linear-gradient(135deg, var(--primary-soft), rgba(224, 64, 251, 0.08));
+  border-color: var(--primary);
+  color: #fff;
+}
+
+.hero-cta-primary:hover {
+  background: var(--primary);
+  box-shadow: 0 0 30px var(--primary-glow), 0 4px 20px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.hero-cta-secondary {
+  background: var(--secondary-soft);
+  border-color: var(--secondary);
+  color: var(--secondary);
+}
+
+.hero-cta-secondary:hover {
+  background: var(--secondary);
+  box-shadow: 0 0 30px var(--secondary-glow);
+  color: #000;
+  transform: translateY(-2px);
+}
+
+/* ===== 3D SCENE SHELL ===== */
+.hero-scene-shell {
+  background: linear-gradient(160deg, rgba(100, 40, 200, 0.1), transparent 50%, rgba(77, 201, 246, 0.06));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 0 60px rgba(100, 40, 200, 0.08), inset 0 0 40px rgba(0, 0, 0, 0.3);
+  height: min(40vw, 36rem);
+  margin-top: 2rem;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.hero-scene-shell canvas {
+  height: 100% !important;
+  width: 100% !important;
+}
+
+.scene-label {
+  background: rgba(10, 10, 26, 0.8);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid var(--border);
+  bottom: 0;
+  color: var(--text-dim);
+  font-family: var(--mono-font);
+  font-size: 0.6rem;
+  inset-inline: 0;
+  letter-spacing: 0.1em;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  position: absolute;
+  text-transform: uppercase;
+}
+

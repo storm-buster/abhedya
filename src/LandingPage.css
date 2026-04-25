@@ -1,0 +1,155 @@
+/* ===== LANDING PAGE ===== */
+.landing-page {
+  background: var(--bg);
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  overflow: hidden;
+  position: relative;
+}
+
+.landing-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1.5rem;
+  position: relative;
+  z-index: 2;
+  max-width: 72rem;
+  width: 100%;
+}
+
+/* Title block is the relative parent for the kernel text */
+.landing-title-block {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Override hero-kernel to sit on the left, between the two title lines */
+.landing-page .landing-title-block .hero-kernel {
+  position: absolute !important;
+  left: 1rem !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  text-align: left !important;
+}
+
+/* Override hero-title margin inside landing */
+.landing-page .hero-title {
+  margin: 0;
+}
+
+.landing-page .hero-description {
+  max-width: 42rem;
+  margin: 1.5rem auto 0;
+}
+
+/* ===== EXPLORE MORE BUTTON ===== */
+.landing-cta-wrapper {
+  margin-top: 2.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.landing-explore-btn {
+  align-items: center;
+  background: rgba(0, 220, 130, 0.08);
+  border: 1.5px solid #00dc82;
+  border-radius: var(--radius-md);
+  color: #00dc82;
+  display: inline-flex;
+  font-family: var(--headline-font);
+  font-size: clamp(0.8rem, 2vw, 1rem);
+  font-weight: 700;
+  gap: 0.8rem;
+  justify-content: center;
+  letter-spacing: 0.1em;
+  min-height: 3.8rem;
+  min-width: 16rem;
+  padding: 0.9rem 2.2rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 350ms cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.landing-explore-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0, 220, 130, 0.15), rgba(0, 220, 130, 0.05));
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.landing-explore-btn:hover {
+  background: #00dc82;
+  box-shadow:
+    0 0 30px rgba(0, 220, 130, 0.4),
+    0 0 60px rgba(0, 220, 130, 0.15),
+    0 4px 20px rgba(0, 0, 0, 0.3);
+  color: #000;
+  transform: translateY(-3px);
+}
+
+.landing-explore-btn:hover::before {
+  opacity: 1;
+}
+
+.landing-explore-btn .material-symbols-outlined {
+  color: inherit;
+  font-size: 1.3rem;
+  transition: transform 300ms ease;
+}
+
+.landing-explore-btn:hover .material-symbols-outlined {
+  transform: translateX(4px);
+  color: #000;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 860px) {
+  .landing-content {
+    padding: 1.5rem 1rem;
+  }
+
+  .landing-explore-btn {
+    min-width: 14rem;
+    font-size: 0.85rem;
+  }
+
+  .landing-title-block .hero-kernel {
+    position: static;
+    transform: none;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .landing-title-block {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 560px) {
+  .landing-content {
+    padding: 1rem 0.8rem;
+  }
+
+  .landing-explore-btn {
+    min-width: 100%;
+  }
+
+  .landing-cta-wrapper {
+    margin-top: 2rem;
+    width: 100%;
+    padding: 0 1rem;
+  }
+}

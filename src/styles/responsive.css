@@ -1,0 +1,398 @@
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1180px) {
+  .container {
+    width: min(1800px, calc(100% - 2.5rem));
+  }
+
+  .desktop-nav {
+    display: none;
+  }
+
+  .hero-kernel {
+    display: none;
+  }
+
+  .hero-scene-shell {
+    height: min(50vw, 28rem);
+  }
+
+  .tracks-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .track-card.wide,
+  .track-card.narrow {
+    grid-column: span 3;
+  }
+
+  .track-media {
+    min-height: 22rem;
+  }
+
+  .intel-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .intel-feed {
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+}
+
+@media (max-width: 860px) {
+  .container {
+    width: calc(100% - 1.6rem);
+  }
+
+  .brand-text {
+    font-size: 0.9rem;
+  }
+
+  .header-button {
+    font-size: 0.65rem;
+    padding-inline: 0.8rem;
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 8vw, 4rem);
+    line-height: 0.85;
+    letter-spacing: 0.06em;
+  }
+
+  .title-secure,
+  .title-bharat,
+  .title-summit,
+  .title-26 {
+    -webkit-text-stroke: 0.5px rgba(140, 80, 200, 0.3);
+  }
+
+  .title-26 {
+    font-size: 1em;
+  }
+
+  .hero-meta {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-scene-shell {
+    height: min(60vw, 24rem);
+  }
+
+  .hero-cta {
+    font-size: 0.72rem;
+    min-height: 3rem;
+    min-width: min(100%, 18rem);
+  }
+
+  .tracks-header {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .tracks-ref {
+    text-align: left;
+  }
+
+  .tracks-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .track-card.wide,
+  .track-card.narrow {
+    grid-column: auto;
+  }
+
+  .hackathon-details {
+    position: relative;
+    background: rgba(10, 6, 20, 0.95);
+    padding: 1.2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  #hackathon .track-media {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #hackathon .track-media > img {
+    display: none;
+  }
+
+  #hackathon .track-overlay {
+    position: relative;
+    inset: auto;
+    background: rgba(10, 6, 20, 0.95);
+    padding: 1.2rem;
+  }
+
+  #hackathon .track-icon {
+    display: none;
+  }
+
+  .round-inline {
+    padding: 0.6rem 0.8rem;
+  }
+
+  .rounds-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .round-card {
+    padding: 1.5rem;
+    gap: 1rem;
+  }
+
+  .register-strip {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .register-strip a {
+    width: 100%;
+    text-align: center;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 560px) {
+  .container {
+    width: calc(100% - 1rem);
+  }
+
+  .brand-text {
+    font-size: 0.68rem;
+  }
+
+  .brand-square {
+    height: 0.9rem;
+    width: 0.9rem;
+  }
+
+  .hero-logos {
+    justify-content: center;
+    gap: 0.6rem;
+    top: 0.5rem;
+    padding: 0 0.5rem;
+  }
+
+  .hero-logos-left {
+    gap: 0.5rem;
+  }
+
+  .org-logo {
+    height: 1.6rem;
+  }
+
+  .org-logo-ipu {
+    height: 1.8rem;
+  }
+
+  .header-button {
+    font-size: 0.6rem;
+    padding-inline: 0.6rem;
+  }
+
+  .hero-section {
+    padding-block: 2rem 3rem;
+  }
+
+  .hero-title {
+    font-size: clamp(1.6rem, 7vw, 2.8rem);
+    line-height: 0.9;
+    letter-spacing: 0.04em;
+  }
+
+  .title-secure,
+  .title-bharat,
+  .title-summit,
+  .title-26 {
+    -webkit-text-stroke: 0;
+  }
+
+  .title-26 {
+    font-size: 1em;
+  }
+
+  .hero-badge {
+    font-size: 0.55rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .hero-description {
+    font-size: 0.85rem;
+  }
+
+  .hero-scene-shell {
+    height: 16rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-cta {
+    min-width: 100%;
+  }
+
+  .meta-item span:last-child {
+    font-size: clamp(0.85rem, 2.5vw, 1.2rem);
+  }
+
+  .track-media {
+    min-height: 16rem;
+  }
+
+  .track-overlay {
+    padding: 1rem;
+  }
+
+  .track-overlay h3 {
+    font-size: 1.1rem;
+  }
+
+  .track-overlay p {
+    font-size: 0.72rem;
+  }
+
+  .hackathon-meta-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .register-strip {
+    padding: 1.2rem;
+  }
+
+  .register-strip h3 {
+    font-size: 0.9rem;
+  }
+
+  .intel-score strong {
+    font-size: 1.8rem;
+  }
+
+  .footer-chip {
+    font-size: 0.55rem;
+    padding: 0.5rem 0.8rem;
+  }
+}
+
+/* ===== RESPONSIVE — NEW COMPONENTS ===== */
+@media (max-width: 1180px) {
+  .desktop-nav {
+    display: none;
+  }
+
+  .hamburger-btn {
+    display: flex;
+  }
+
+  .mobile-menu {
+    display: flex;
+  }
+}
+
+@media (max-width: 860px) {
+  .summit-title-block {
+    flex-direction: column;
+  }
+
+  .summit-title-block .hero-kernel {
+    position: static !important;
+    transform: none !important;
+    text-align: center !important;
+    margin-bottom: 1rem;
+  }
+
+  .countdown-inline {
+    gap: 0.4rem;
+  }
+
+  .countdown-unit {
+    min-width: 3.2rem;
+    padding: 0.5rem 0.6rem;
+  }
+
+  .countdown-value {
+    font-size: 1.2rem;
+  }
+
+  .countdown-floating-inner {
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    justify-content: center;
+  }
+
+  .countdown-cta {
+    margin-left: 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .faq-question {
+    font-size: 0.82rem;
+    padding: 1rem 1.2rem;
+  }
+
+  .faq-item.is-open .faq-answer {
+    padding: 0 1.2rem 1rem;
+  }
+
+  .social-links {
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .countdown-inline {
+    gap: 0.3rem;
+  }
+
+  .countdown-unit {
+    min-width: 2.6rem;
+    padding: 0.4rem 0.5rem;
+  }
+
+  .countdown-value {
+    font-size: 1rem;
+  }
+
+  .countdown-label {
+    font-size: 0.45rem;
+  }
+
+  .countdown-sep {
+    font-size: 0.9rem;
+  }
+
+  .floating-cta {
+    padding: 0.6rem 1rem;
+  }
+
+  .countdown-floating-label {
+    display: none;
+  }
+
+  .countdown-compact span {
+    font-size: 0.85rem;
+  }
+
+  .faq-question {
+    font-size: 0.78rem;
+    padding: 0.8rem 1rem;
+  }
+
+  .faq-answer p {
+    font-size: 0.78rem;
+  }
+
+  .scroll-top-btn {
+    bottom: 4.5rem;
+    height: 2.4rem;
+    right: 1rem;
+    width: 2.4rem;
+  }
+}

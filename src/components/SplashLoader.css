@@ -1,0 +1,37 @@
+.splash-container {
+  position: fixed;
+  inset: 0;
+  background: #f9edf9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 1s ease, visibility 1s;
+}
+
+.splash-container.fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Fullscreen animation covering entire viewport */
+.lottie-fullscreen {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lottie-fullscreen > div {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.lottie-fullscreen canvas {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+}
