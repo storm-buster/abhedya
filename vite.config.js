@@ -15,15 +15,11 @@ export default defineConfig({
   },
   build: {
     target: 'esnext',
-    // Increase inline limit so small assets don't create extra requests
     assetsInlineLimit: 4096,
-    // Enable CSS code splitting for faster page loads
     cssCodeSplit: true,
-    // Better source maps for prod debugging (optional, remove to save size)
     sourcemap: false,
     rollupOptions: {
       output: {
-<<<<<<< HEAD
         // Smart chunk splitting — heavy libs load separately (parallel)
         manualChunks(id) {
           if (id.includes('node_modules/three') ||
@@ -40,21 +36,9 @@ export default defineConfig({
             return 'react-vendor'
           }
         },
-        // Hashed filenames for cache busting
         chunkFileNames: 'assets/[name]-[hash].js',
         assetFileNames: 'assets/[name]-[hash][extname]',
         entryFileNames: 'assets/[name]-[hash].js',
-=======
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            if (id.includes('react')) return 'react-vendor';
-            if (id.includes('three')) return 'three-vendor';
-            if (id.includes('motion')) return 'motion-vendor';
-            if (id.includes('ogl')) return 'ogl-vendor';
-            return 'vendor';
-          }
-        }
->>>>>>> 515bbd8998361535f45e3d4685a8d65bbcfa048f
       },
     },
   },
