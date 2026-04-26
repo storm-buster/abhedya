@@ -17,14 +17,16 @@ export default defineConfig({
     target: 'esnext',
     rollupOptions: {
       output: {
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom'],
-          'three-vendor': ['three', '@react-three/fiber', '@react-three/drei'],
-          'motion-vendor': ['motion/react'],
-          'ogl-vendor': ['ogl'],
-        },
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('react')) return 'react-vendor';
+            if (id.includes('three')) return 'three-vendor';
+            if (id.includes('motion')) return 'motion-vendor';
+            if (id.includes('ogl')) return 'ogl-vendor';
+            return 'vendor';
+          }
+        }
       },
     },
   },
 })
-
