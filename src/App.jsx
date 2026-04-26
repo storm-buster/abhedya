@@ -12,15 +12,16 @@ import './styles/sections.css'
 import './styles/components.css'
 import './styles/responsive.css'
 
-const titleBlur = (i) => ({
-  initial: { filter: 'blur(10px)', opacity: 0, y: -40 },
-  animate: { filter: ['blur(10px)', 'blur(5px)', 'blur(0px)'], opacity: [0, 0.5, 1], y: [-40, 5, 0] },
+// GPU-optimized: transform + opacity only (no filter: blur — avoids repaint storms)
+const titleReveal = (i) => ({
+  initial: { opacity: 0, y: -40, scale: 1.08 },
+  animate: { opacity: 1, y: 0, scale: 1 },
   transition: { duration: 0.7, delay: i * 0.15, ease: [0.25, 0.46, 0.45, 0.94] },
 })
 
-const kernelBlur = (i) => ({
-  initial: { filter: 'blur(8px)', opacity: 0, y: -30 },
-  animate: { filter: ['blur(8px)', 'blur(4px)', 'blur(0px)'], opacity: [0, 0.5, 1], y: [-30, 3, 0] },
+const kernelReveal = (i) => ({
+  initial: { opacity: 0, y: -30, scale: 1.04 },
+  animate: { opacity: 1, y: 0, scale: 1 },
   transition: { duration: 0.6, delay: 0.6 + i * 0.12, ease: [0.25, 0.46, 0.45, 0.94] },
 })
 
@@ -175,20 +176,20 @@ function App() {
           <div className="summit-title-block">
             <h1 className="hero-title">
               <span className="hero-title-line1">
-                <motion.span className="title-secure" {...titleBlur(0)}>SECURE</motion.span>{' '}
-                <motion.span className="title-bharat" {...titleBlur(1)}>BHARAT</motion.span>
+                <motion.span className="title-secure" {...titleReveal(0)}>SECURE</motion.span>{' '}
+                <motion.span className="title-bharat" {...titleReveal(1)}>BHARAT</motion.span>
               </span>
               <br />
               <span className="hero-title-line2">
-                <motion.span className="title-summit" {...titleBlur(2)}>SUMMIT</motion.span>{' '}
-                <motion.span className="title-26" {...titleBlur(3)}>26</motion.span>
+                <motion.span className="title-summit" {...titleReveal(2)}>SUMMIT</motion.span>{' '}
+                <motion.span className="title-26" {...titleReveal(3)}>26</motion.span>
               </span>
             </h1>
 
-            <motion.div className="hero-kernel" {...kernelBlur(0)}>
-              <motion.span {...kernelBlur(0)} style={{ display: 'block' }}>Secure Bharat Summit 2026</motion.span>
-              <motion.span {...kernelBlur(1)} style={{ display: 'block' }}>The Cybersecurity Club — GGSIPU</motion.span>
-              <motion.span {...kernelBlur(2)} style={{ display: 'block' }}>Defenders of the Digital Age</motion.span>
+            <motion.div className="hero-kernel" {...kernelReveal(0)}>
+              <motion.span {...kernelReveal(0)} style={{ display: 'block' }}>Secure Bharat Summit 2026</motion.span>
+              <motion.span {...kernelReveal(1)} style={{ display: 'block' }}>The Cybersecurity Club — GGSIPU</motion.span>
+              <motion.span {...kernelReveal(2)} style={{ display: 'block' }}>Defenders of the Digital Age</motion.span>
               <div className="kernel-line"></div>
             </motion.div>
           </div>
