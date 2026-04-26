@@ -483,26 +483,16 @@ function App() {
               </div>
             </div>
 
-            {/* General Sponsor */}
+            {/* General Sponsors */}
             <div className="sponsor-tier sponsor-general">
               <div className="tier-label">
                 <span className="material-symbols-outlined">handshake</span>
-                General Sponsor
+                General Sponsors
               </div>
               <div className="sponsor-logos">
                 <div className="sponsor-logo-card">
                   <img alt="CodeCrafters" src="/codecrafters-2.svg" />
                 </div>
-              </div>
-            </div>
-
-            {/* General Sponsor 2 */}
-            <div className="sponsor-tier sponsor-general">
-              <div className="tier-label">
-                <span className="material-symbols-outlined">handshake</span>
-                General Sponsor
-              </div>
-              <div className="sponsor-logos">
                 <div className="sponsor-logo-card">
                   <img alt=".xyz" src="/xyz-logo-png.png" />
                 </div>
