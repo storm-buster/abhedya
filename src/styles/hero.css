@@ -120,9 +120,15 @@
   color: transparent;
   position: relative;
   text-align: center;
-  /* 3D depth extrusion — heavy like poster */
+  /* GPU layer promotion for smoother child animations */
+  will-change: transform;
+  contain: layout style;
+  /* 3D depth extrusion — optimized: reduced from 7 to 4 shadows for perf */
   filter:
-    drop-shadow(0 2px 0 rgba(50, 15, 80, 1)) drop-shadow(0 4px 0 rgba(40, 10, 70, 0.85)) drop-shadow(0 6px 0 rgba(30, 8, 55, 0.7)) drop-shadow(0 8px 1px rgba(20, 5, 40, 0.55)) drop-shadow(0 10px 2px rgba(10, 2, 25, 0.4)) drop-shadow(0 0 15px rgba(120, 50, 180, 0.25)) drop-shadow(0 0 50px rgba(100, 30, 160, 0.12));
+    drop-shadow(0 3px 0 rgba(50, 15, 80, 0.95))
+    drop-shadow(0 6px 1px rgba(30, 8, 55, 0.6))
+    drop-shadow(0 10px 2px rgba(10, 2, 25, 0.35))
+    drop-shadow(0 0 20px rgba(120, 50, 180, 0.2));
 }
 
 .hero-title-line1,

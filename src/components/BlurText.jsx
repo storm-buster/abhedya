@@ -1,16 +1,6 @@
 import { motion } from 'motion/react';
 import { useEffect, useRef, useState, useMemo } from 'react';
 
-const buildKeyframes = (from, steps) => {
-  const keys = new Set([...Object.keys(from), ...steps.flatMap(s => Object.keys(s))]);
-
-  const keyframes = {};
-  keys.forEach(k => {
-    keyframes[k] = [from[k], ...steps.map(s => s[k])];
-  });
-  return keyframes;
-};
-
 const BlurText = ({
   text = '',
   delay = 200,
@@ -21,7 +11,7 @@ const BlurText = ({
   rootMargin = '0px',
   animationFrom,
   animationTo,
-  easing = t => t,
+  easing = [0.25, 0.46, 0.45, 0.94],
   onAnimationComplete,
   stepDuration = 0.22
 }) => {
@@ -44,45 +34,42 @@ const BlurText = ({
     return () => observer.disconnect();
   }, [threshold, rootMargin]);
 
+  // GPU-optimized: Use only transform + opacity (no filter: blur)
+  // Simulate blur appearance with scale + opacity which are compositor-only
   const defaultFrom = useMemo(
     () =>
-      direction === 'top' ? { opacity: 0, y: -30 } : { opacity: 0, y: 30 },
+      direction === 'top'
+        ? { opacity: 0, y: -50, scale: 1.04 }
+        : { opacity: 0, y: 50, scale: 1.04 },
     [direction]
   );
 
   const defaultTo = useMemo(
-    () => [
-      { opacity: 0.5, y: direction === 'top' ? 3 : -3 },
-      { opacity: 1, y: 0 }
-    ],
-    [direction]
+    () => ({ opacity: 1, y: 0, scale: 1 }),
+    []
   );
 
   const fromSnapshot = animationFrom ?? defaultFrom;
-  const toSnapshots = animationTo ?? defaultTo;
-
-  const stepCount = toSnapshots.length + 1;
-  const totalDuration = stepDuration * (stepCount - 1);
-  const times = Array.from({ length: stepCount }, (_, i) => (stepCount === 1 ? 0 : i / (stepCount - 1)));
+  const toSnapshot = animationTo ?? defaultTo;
 
   return (
     <p ref={ref} className={className} style={{ display: 'flex', flexWrap: 'wrap' }}>
       {elements.map((segment, index) => {
-        const animateKeyframes = buildKeyframes(fromSnapshot, toSnapshots);
-
         const spanTransition = {
-          duration: totalDuration,
-          times,
-          delay: (index * delay) / 1000
+          duration: stepDuration * 2,
+          delay: (index * delay) / 1000,
+          ease: easing,
         };
-        spanTransition.ease = easing;
 
         return (
           <motion.span
-            style={{ display: 'inline-block', willChange: 'transform, filter, opacity' }}
+            style={{
+              display: 'inline-block',
+              willChange: 'transform, opacity',
+            }}
             key={index}
             initial={fromSnapshot}
-            animate={inView ? animateKeyframes : fromSnapshot}
+            animate={inView ? toSnapshot : fromSnapshot}
             transition={spanTransition}
             onAnimationComplete={index === elements.length - 1 ? onAnimationComplete : undefined}
           >
