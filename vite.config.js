@@ -15,16 +15,35 @@ export default defineConfig({
   },
   build: {
     target: 'esnext',
+    // Increase inline limit so small assets don't create extra requests
+    assetsInlineLimit: 4096,
+    // Enable CSS code splitting for faster page loads
+    cssCodeSplit: true,
+    // Better source maps for prod debugging (optional, remove to save size)
+    sourcemap: false,
     rollupOptions: {
       output: {
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom'],
-          'three-vendor': ['three', '@react-three/fiber', '@react-three/drei'],
-          'motion-vendor': ['motion/react'],
-          'ogl-vendor': ['ogl'],
+        // Smart chunk splitting — heavy libs load separately (parallel)
+        manualChunks(id) {
+          if (id.includes('node_modules/three') ||
+              id.includes('node_modules/@react-three') ||
+              id.includes('node_modules/ogl')) {
+            return 'three-vendor'
+          }
+          if (id.includes('node_modules/motion') ||
+              id.includes('node_modules/framer-motion')) {
+            return 'motion-vendor'
+          }
+          if (id.includes('node_modules/react-dom') ||
+              id.includes('node_modules/react/')) {
+            return 'react-vendor'
+          }
         },
+        // Hashed filenames for cache busting
+        chunkFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash][extname]',
+        entryFileNames: 'assets/[name]-[hash].js',
       },
     },
   },
 })
-

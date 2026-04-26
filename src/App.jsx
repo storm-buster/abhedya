@@ -1,10 +1,12 @@
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useEffect, useRef, useState, useCallback, lazy, Suspense } from 'react'
 import { motion } from 'motion/react'
-import CyberScene from './components/CyberScene'
-import RippleGrid from './components/RippleGrid'
+// Lazy load heavy 3D components — Three.js won't block initial page render
+const CyberScene = lazy(() => import('./components/CyberScene'))
+const RippleGrid = lazy(() => import('./components/RippleGrid'))
 import CountdownTimer from './components/CountdownTimer'
 import BlurText from './components/BlurText'
 import FAQ from './components/FAQ'
+
 import './styles/layout.css'
 import './styles/hero.css'
 import './styles/tracks.css'
@@ -13,15 +15,15 @@ import './styles/components.css'
 import './styles/responsive.css'
 
 const titleBlur = (i) => ({
-  initial: { filter: 'blur(10px)', opacity: 0, y: -40 },
-  animate: { filter: ['blur(10px)', 'blur(5px)', 'blur(0px)'], opacity: [0, 0.5, 1], y: [-40, 5, 0] },
-  transition: { duration: 0.7, delay: i * 0.15, ease: [0.25, 0.46, 0.45, 0.94] },
+  initial: { opacity: 0, y: -20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.35, delay: i * 0.07, ease: [0.25, 0.46, 0.45, 0.94] },
 })
 
 const kernelBlur = (i) => ({
-  initial: { filter: 'blur(8px)', opacity: 0, y: -30 },
-  animate: { filter: ['blur(8px)', 'blur(4px)', 'blur(0px)'], opacity: [0, 0.5, 1], y: [-30, 3, 0] },
-  transition: { duration: 0.6, delay: 0.6 + i * 0.12, ease: [0.25, 0.46, 0.45, 0.94] },
+  initial: { opacity: 0, y: -15 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.3, delay: 0.3 + i * 0.06, ease: [0.25, 0.46, 0.45, 0.94] },
 })
 
 import {
@@ -83,18 +85,20 @@ function App() {
       <a href="#home" className="skip-link">Skip to content</a>
 
       <div aria-hidden="true" className="nexus-layer ripple-bg">
-        <RippleGrid
-          gridColor="#eecef2"
-          rippleIntensity={0.01}
-          gridSize={10}
-          gridThickness={15}
-          vignetteStrength={0.5}
-          glowIntensity={0.2}
-          opacity={0.25}
-          gridRotation={45}
-          mouseInteraction
-          mouseInteractionRadius={0.8}
-        />
+        <Suspense fallback={null}>
+          <RippleGrid
+            gridColor="#eecef2"
+            rippleIntensity={0.01}
+            gridSize={10}
+            gridThickness={15}
+            vignetteStrength={0.5}
+            glowIntensity={0.2}
+            opacity={0.25}
+            gridRotation={45}
+            mouseInteraction
+            mouseInteractionRadius={0.8}
+          />
+        </Suspense>
       </div>
       <div aria-hidden="true" className="nexus-layer scanlines"></div>
 
@@ -195,7 +199,7 @@ function App() {
 
           <BlurText
             text="The nation's premier cybersecurity summit bringing together tech workshops, expert seminars, panel discussions, and the CyberNexus Hackathon — all under one roof. Defend. Innovate. Lead."
-            delay={150}
+            delay={60}
             animateBy="words"
             direction="top"
             className="hero-description"
@@ -232,7 +236,9 @@ function App() {
           </div>
 
           <div className="hero-scene-shell skeleton-glow">
-            <CyberScene mode="hero" pointerRef={pointerRef} />
+            <Suspense fallback={<div style={{width:'100%',height:'100%',background:'var(--bg-deep)'}} />}>
+              <CyberScene mode="hero" pointerRef={pointerRef} />
+            </Suspense>
             <p className="scene-label">
               Interactive 3D Visualization • Move cursor to shift camera • Click to energize
             </p>
@@ -521,7 +527,9 @@ function App() {
 
             <aside className="intel-visual">
               <div className="intel-scene skeleton-glow">
-                <CyberScene mode="compact" pointerRef={pointerRef} />
+                <Suspense fallback={<div style={{width:'100%',height:'100%',background:'var(--bg-deep)'}} />}>
+                  <CyberScene mode="compact" pointerRef={pointerRef} />
+                </Suspense>
               </div>
               <div className="intel-score">
                 <span>System Integrity</span>
