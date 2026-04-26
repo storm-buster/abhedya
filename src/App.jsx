@@ -1,10 +1,12 @@
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useEffect, useRef, useState, useCallback, lazy, Suspense } from 'react'
 import { motion } from 'motion/react'
-import CyberScene from './components/CyberScene'
-import RippleGrid from './components/RippleGrid'
+// Lazy load heavy 3D components — Three.js won't block initial page render
+const CyberScene = lazy(() => import('./components/CyberScene'))
+const RippleGrid = lazy(() => import('./components/RippleGrid'))
 import CountdownTimer from './components/CountdownTimer'
 import BlurText from './components/BlurText'
 import FAQ from './components/FAQ'
+
 import './styles/layout.css'
 import './styles/hero.css'
 import './styles/tracks.css'
@@ -84,18 +86,20 @@ function App() {
       <a href="#home" className="skip-link">Skip to content</a>
 
       <div aria-hidden="true" className="nexus-layer ripple-bg">
-        <RippleGrid
-          gridColor="#eecef2"
-          rippleIntensity={0.01}
-          gridSize={10}
-          gridThickness={15}
-          vignetteStrength={0.5}
-          glowIntensity={0.2}
-          opacity={0.25}
-          gridRotation={45}
-          mouseInteraction
-          mouseInteractionRadius={0.8}
-        />
+        <Suspense fallback={null}>
+          <RippleGrid
+            gridColor="#eecef2"
+            rippleIntensity={0.01}
+            gridSize={10}
+            gridThickness={15}
+            vignetteStrength={0.5}
+            glowIntensity={0.2}
+            opacity={0.25}
+            gridRotation={45}
+            mouseInteraction
+            mouseInteractionRadius={0.8}
+          />
+        </Suspense>
       </div>
       <div aria-hidden="true" className="nexus-layer scanlines"></div>
 
@@ -196,7 +200,7 @@ function App() {
 
           <BlurText
             text="The nation's premier cybersecurity summit bringing together tech workshops, expert seminars, panel discussions, and the CyberNexus Hackathon — all under one roof. Defend. Innovate. Lead."
-            delay={150}
+            delay={60}
             animateBy="words"
             direction="top"
             className="hero-description"
@@ -233,7 +237,9 @@ function App() {
           </div>
 
           <div className="hero-scene-shell skeleton-glow">
-            <CyberScene mode="hero" pointerRef={pointerRef} />
+            <Suspense fallback={<div style={{width:'100%',height:'100%',background:'var(--bg-deep)'}} />}>
+              <CyberScene mode="hero" pointerRef={pointerRef} />
+            </Suspense>
             <p className="scene-label">
               Interactive 3D Visualization • Move cursor to shift camera • Click to energize
             </p>
@@ -484,26 +490,16 @@ function App() {
               </div>
             </div>
 
-            {/* General Sponsor */}
+            {/* General Sponsors */}
             <div className="sponsor-tier sponsor-general">
               <div className="tier-label">
                 <span className="material-symbols-outlined">handshake</span>
-                General Sponsor
+                General Sponsors
               </div>
               <div className="sponsor-logos">
                 <div className="sponsor-logo-card">
                   <img alt="CodeCrafters" src="/codecrafters-2.svg" />
                 </div>
-              </div>
-            </div>
-
-            {/* General Sponsor 2 */}
-            <div className="sponsor-tier sponsor-general">
-              <div className="tier-label">
-                <span className="material-symbols-outlined">handshake</span>
-                General Sponsor
-              </div>
-              <div className="sponsor-logos">
                 <div className="sponsor-logo-card">
                   <img alt=".xyz" src="/xyz-logo-png.png" />
                 </div>
@@ -532,7 +528,9 @@ function App() {
 
             <aside className="intel-visual">
               <div className="intel-scene skeleton-glow">
-                <CyberScene mode="compact" pointerRef={pointerRef} />
+                <Suspense fallback={<div style={{width:'100%',height:'100%',background:'var(--bg-deep)'}} />}>
+                  <CyberScene mode="compact" pointerRef={pointerRef} />
+                </Suspense>
               </div>
               <div className="intel-score">
                 <span>System Integrity</span>
