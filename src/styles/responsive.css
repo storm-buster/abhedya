@@ -44,6 +44,12 @@
     width: calc(100% - 1.6rem);
   }
 
+  .hero-india-map {
+    height: 50%;
+    top: 8%;
+    opacity: 0.16;
+  }
+
   .brand-text {
     font-size: 0.9rem;
   }
@@ -162,6 +168,14 @@
     width: calc(100% - 1rem);
   }
 
+  .hero-india-map {
+    height: 42%;
+    top: 12%;
+    opacity: 0.13;
+    -webkit-mask-image: radial-gradient(ellipse 80% 85% at 50% 48%, black 45%, transparent 80%);
+    mask-image: radial-gradient(ellipse 80% 85% at 50% 48%, black 45%, transparent 80%);
+  }
+
   .brand-text {
     font-size: 0.68rem;
   }
@@ -196,13 +210,22 @@
   }
 
   .hero-section {
-    padding-block: 2rem 3rem;
+    padding-block: 1.2rem 3rem;
   }
 
-  .hero-title {
-    font-size: clamp(1.6rem, 7vw, 2.8rem);
-    line-height: 0.9;
-    letter-spacing: 0.04em;
+  .hero-logos {
+    position: static;
+    padding: 0;
+    margin-bottom: 1rem;
+    justify-content: space-between;
+  }
+
+  .org-logo {
+    height: 2.2rem;
+  }
+
+  .org-logo-ipu {
+    height: 2.6rem;
   }
 
   .title-secure,
@@ -214,6 +237,12 @@
 
   .title-26 {
     font-size: 1em;
+  }
+
+  .hero-title {
+    font-size: clamp(1.6rem, 7vw, 2.8rem);
+    line-height: 0.9;
+    letter-spacing: 0.04em;
   }
 
   .hero-badge {

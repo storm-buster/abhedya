@@ -158,6 +158,13 @@ function App() {
 
       <main className="nexus-main">
         <section className="hero-section container" id="home">
+          {/* India Map — decorative background, blends with theme */}
+          <img
+            aria-hidden="true"
+            src="/india_map.png"
+            alt=""
+            className="hero-india-map"
+          />
           {/* Organization Logos */}
           <div className="hero-logos">
             <div className="hero-logos-left">
@@ -213,10 +220,10 @@ function App() {
               </span>
               <span>2nd May 2026</span>
             </article>
-            <a 
-              className="meta-item location-link" 
-              href="https://maps.app.goo.gl/jNrYHFYb89PnYFss8" 
-              target="_blank" 
+            <a
+              className="meta-item location-link"
+              href="https://maps.app.goo.gl/jNrYHFYb89PnYFss8"
+              target="_blank"
               rel="noopener noreferrer"
               title="View on Google Maps"
             >
@@ -237,7 +244,7 @@ function App() {
           </div>
 
           <div className="hero-scene-shell skeleton-glow">
-            <Suspense fallback={<div style={{width:'100%',height:'100%',background:'var(--bg-deep)'}} />}>
+            <Suspense fallback={<div style={{ width: '100%', height: '100%', background: 'var(--bg-deep)' }} />}>
               <CyberScene mode="hero" pointerRef={pointerRef} />
             </Suspense>
             <p className="scene-label">
@@ -255,9 +262,9 @@ function App() {
             <p className="tracks-ref">
               2nd May 2026
               <br />
-              <a 
-                href="https://maps.app.goo.gl/jNrYHFYb89PnYFss8" 
-                target="_blank" 
+              <a
+                href="https://maps.app.goo.gl/jNrYHFYb89PnYFss8"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="location-inline-link"
               >
@@ -528,7 +535,7 @@ function App() {
 
             <aside className="intel-visual">
               <div className="intel-scene skeleton-glow">
-                <Suspense fallback={<div style={{width:'100%',height:'100%',background:'var(--bg-deep)'}} />}>
+                <Suspense fallback={<div style={{ width: '100%', height: '100%', background: 'var(--bg-deep)' }} />}>
                   <CyberScene mode="compact" pointerRef={pointerRef} />
                 </Suspense>
               </div>
